@@ -7,7 +7,7 @@ class Matrix:
     def __init__(self, size : (int, int) = (1,1),
                  arraymatrix : List[List[int]] = None,
                  matrix : "Matrix" = None):
-        self.matrix = [[0]*size[1] for _ in range(size[2])]
+        self.matrix = [[0]*size[0] for _ in range(size[1])]
 
     def size(self) -> (int, int):
         return len(self.matrix), len(self.matrix[0])
@@ -15,14 +15,36 @@ class Matrix:
     def __add__(self, other) -> "Matrix":
         if self.size() != other.size():
             raise ValueError()
-
-        return None
+        size = self.size()
+        tmp = Matrix(size)
+        for i in range(size[0]):
+            for j in range(size[1]):
+                tmp.matrix[i][j] += other.matrix[i][j] + self.matrix[i][j]
+        return tmp
 
     def __mul__(self, other) -> "Matrix":
-        if len(self) != len(other):
+        if self.size() != other.size():
             raise ValueError()
-        return None
+        size = (self.size()[0], other.size()[1])
+        midsize = self.size()[1]
+        tmp = Matrix(size)
+        for i in range(size[0]):
+            for j in range(midsize):
+                for k in range(size[1]):
+                    tmp.matrix[i][k] += self.matrix[i][j] * other.matrix[j][k]
+        return tmp
 
+    def __str__(self):
+        ml = max(max(len(str(i)) for i in j) for j in self.matrix) + 1
+        return "\n".join(f"| {' '.join(f'{j:>{ml}}' for j in i)} |" for i in self.matrix)
+
+
+A = Matrix()
+A.matrix = [[1,0,0],[0,1,0],[0,0,1]]
+B = Matrix()
+B.matrix = [[1,2,3],[4,5,6],[7,8,9]]
+# print((A * B).matrix)
+print((A * B))
 
 """
 def gaussian_elimination(matrix):
