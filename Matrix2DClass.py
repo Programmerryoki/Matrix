@@ -1,7 +1,7 @@
 from typing import List
 
 
-class Matrix:
+class Matrix2D:
     matrix = None
 
     def __init__(self, size: (int, int) = None,
@@ -37,7 +37,7 @@ class Matrix:
                 if self.matrix[i][j] != other.matrix[i][j]:
                     return False
         return True
-
+    
     def __bool__(self) -> bool:
         return bool(self.size() and self.matrix)
 
@@ -78,7 +78,7 @@ class Matrix:
         return "\n".join(f"| {' '.join(f'{j:>{ml}}' for j in i)} |" for i in self.matrix)
 
     def __copy__(self) -> "Matrix2D":
-        return self
+        return self        
 
     def __deepcopy__(self, memodict={}) -> "Matrix2D":
         new = Matrix2D(matrix=self)
