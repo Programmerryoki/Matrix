@@ -62,7 +62,7 @@ class Matrix2D:
         return tmp
 
     def __mul__(self, other: "Matrix2D") -> "Matrix2D":
-        if self.size() != other.size():
+        if self.size()[1] != other.size()[0]:
             raise ValueError()
         size = (self.size()[0], other.size()[1])
         midsize = self.size()[1]

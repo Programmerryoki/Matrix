@@ -1,7 +1,7 @@
 import unittest
 from copy import copy, deepcopy
 
-from MatrixClass import Matrix2D
+from Matrix2DClass import Matrix2D
 
 class TestMatrix2D(unittest.TestCase):
     def test_initializer_size(self):
